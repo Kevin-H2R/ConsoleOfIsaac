@@ -100,7 +100,7 @@ class Player extends Displayable {
     catchBonus(bonus) {
         switch (bonus.getType()) {
             case Bonus.RANGE:
-                this.#range++
+                if (this.#range < 6) this.#range++
                 break;
         }
     }

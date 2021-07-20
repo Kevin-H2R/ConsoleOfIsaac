@@ -58,9 +58,11 @@ class Game {
             return
         }
         this.#turnSinceLastMonsterSpawn = 0
+
         let randomX = Math.floor(Math.random() * Map.WIDTH)
         let randomY = Math.floor(Math.random() * Map.HEIGHT)
-        while (randomX === this.#player.getX() && randomY === this.#player.getY()) {
+        while (Math.abs(randomX - this.#player.getX()) < 4 &&
+         Math.abs(randomY - this.#player.getY()) < 4) {
             randomX = Math.floor(Math.random() * Map.WIDTH)
             randomY = Math.floor(Math.random() * Map.HEIGHT)
         }
