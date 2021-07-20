@@ -175,7 +175,10 @@ class Map {
                 this.#monsters.splice(i, 1)
                 hitMonster = true
                 this.#game.killMonster()
-                this.#bonuses.push(new Bonus(monster.getX(), monster.getY()))
+                const shouldDrop = Math.floor(Math.random() * 4)
+                if (shouldDrop === 0) {
+                    this.#bonuses.push(new Bonus(monster.getX(), monster.getY()))
+                }
                 break;
              }
         }
