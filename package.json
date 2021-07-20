@@ -1,0 +1,6 @@
+{
+    "type": "module",
+    "dependencies": {
+        "keypress": "^0.2.1"
+    }
+}
