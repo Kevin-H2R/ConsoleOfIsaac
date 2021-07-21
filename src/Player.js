@@ -7,11 +7,15 @@ class Player extends Displayable {
     #updating;
     #map
     #range
+    #ammoCapacity
+    #ammo
 
     constructor() {
-        super(0, 0)
+        super(0, 0, 'P')
         this.#updating = false
         this.#range = 3
+        this.#ammoCapacity = 5
+        this.#ammo = this.#ammoCapacity
 
         keypress(process.stdin);
         var that = this
@@ -41,21 +45,24 @@ class Player extends Displayable {
                 that.decreaseX()
                 return
             }
-            if (key && key.name === 'd') {
+            if (that.#ammo > 0 && key && key.name === 'd') {
                 that.shoot(that._x + 1, that._y, 0)
                 return
             }
-            if (key && key.name === 's') {
+            if (that.#ammo > 0 && key && key.name === 's') {
                 that.shoot(that._x, that._y + 1, 1)
                 return
             }
-            if (key && key.name === 'a') {
+            if (that.#ammo > 0 && key && key.name === 'a') {
                 that.shoot(that._x - 1, that._y, 2)
                 return
             }
-            if (key && key.name === 'w') {
+            if (that.#ammo > 0 && key && key.name === 'w') {
                 that.shoot(that._x, that._y - 1, 3)
                 return
+            }
+            if (key && key.name === 'r') {
+                that.#ammo = that.#ammoCapacity
             }
             
 
@@ -91,6 +98,7 @@ class Player extends Displayable {
     shoot(x, y, direction) {
         const shot = new Shot(x, y ,direction, this.#range)
         this.#map.shotFired(shot)
+        this.#ammo--
     }
 
     getRange() {
@@ -103,6 +111,14 @@ class Player extends Displayable {
                 if (this.#range < 6) this.#range++
                 break;
         }
+    }
+
+    getAmmo() {
+        return this.#ammo
+    }
+
+    getAmmoCapacity() {
+        return this.#ammoCapacity
     }
 }
 

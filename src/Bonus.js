@@ -5,7 +5,7 @@ class Bonus extends Displayable {
     static types = [Bonus.RANGE]
     #type
     constructor(x, y) {
-        super(x, y)
+        super(x, y, '◍')
         this.#type = Bonus.types[Math.floor(Math.random() * Bonus.types.length)]
     }
 

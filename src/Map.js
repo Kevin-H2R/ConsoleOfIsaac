@@ -21,9 +21,7 @@ class Map {
         let displayString = this.#displayMap()
         
         displayString = this.#displayBonuses(displayString)
-        displayString = this.#positionPlayer(
-            displayString, player.getX(), player.getY()
-        )
+        displayString = this.#positionElement(displayString, player)
         displayString = this.#displayShots(displayString)
         displayString = this.#displayMonsters(displayString, player)
         console.log(displayString)
@@ -74,20 +72,11 @@ class Map {
 
         return displayString
     }
+    #positionElement(str, displayable) {
+        const x = displayable.getX()
+        const y = displayable.getY()
+        const c = displayable.getDisplayChar()
 
-    #positionPlayer(str, x, y) {
-        return this.#positionElement(str, x, y, 'P')
-    }
-
-    #positionMonster(str, monster) {
-        return this.#positionElement(str, monster.getX(), monster.getY(), 'm')
-    }
-
-    #positionBonus(str, bonus) {
-        return this.#positionElement(str, bonus.getX(), bonus.getY(), '◯')
-    }
-
-    #positionElement(str, x, y, c) {
         const yOffset = (y + 1) * ((Map.WIDTH + 2) * 3 + 1)
         const xOffset = x * 3 + 5
         const index = xOffset + yOffset
@@ -104,14 +93,14 @@ class Map {
 
     #displayBonuses(str) {
         this.#bonuses.forEach(bonus => {
-            str = this.#positionBonus(str, bonus)
+            str = this.#positionElement(str, bonus)
         })
         return str
     }
 
     #displayMonsters(str, player) {
         this.#monsters.forEach(monster => {
-            str = this.#positionMonster(str, monster)
+            str = this.#positionElement(str, monster)
             if (monster.getUpdateCounter() < monster.getUpdateRate()) {
                 monster.inscreaseUpdateCounter()
                 return
@@ -154,11 +143,7 @@ class Map {
                 this.#shots.splice(i, 1)
                 continue
             }
-            let char = '|'
-            if (shot.getDirection() % 2 === 0) {
-                char = '―'
-            }
-            str = this.#positionElement(str, shot.getX(), shot.getY(), char)
+            str = this.#positionElement(str, shot)
             shot.update()
         }
 
@@ -176,7 +161,7 @@ class Map {
                 hitMonster = true
                 this.#game.killMonster()
                 const shouldDrop = Math.floor(Math.random() * 4)
-                if (shouldDrop === 0) {
+                if (shouldDrop >= 0) {
                     this.#bonuses.push(new Bonus(monster.getX(), monster.getY()))
                 }
                 break;

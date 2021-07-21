@@ -71,7 +71,9 @@ class Game {
     }
 
     #displayStats() {
-        let statsString = "range: " + this.#player.getRange() + "\n"
+        let statsString = "Range: " + this.#player.getRange() + "\n"
+        statsString += "Ammo: " + this.#player.getAmmo() + "/" + 
+            this.#player.getAmmoCapacity() + "\n"
         statsString += "m: x" + this.#monsterKills
         console.log(statsString)
     }

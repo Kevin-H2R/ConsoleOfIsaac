@@ -4,7 +4,7 @@ class Monster extends Displayable {
     #updateRate
     #updateCounter
     constructor(x, y) {
-        super(x, y)
+        super(x, y, 'm')
         this.#updateRate = 20
         this.#updateCounter = this.#updateRate
     }

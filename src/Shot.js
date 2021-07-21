@@ -7,7 +7,11 @@ class Shot extends Displayable {
     #traveled
 
     constructor(x, y, direction, range) {
-        super(x, y)
+        let char = '|'
+        if (direction  % 2 === 0) {
+            char = '―'
+        }
+        super(x, y, char)
         this.#direction = direction
         this.#updateRate = 1
         this.#updateCounter = this.#updateRate

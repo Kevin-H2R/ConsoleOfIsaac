@@ -1,11 +1,13 @@
 class Displayable {
     _x;
     _y;
+    _displayChar
 
 
-    constructor(x, y) {
+    constructor(x, y, displayChar) {
         this._x = x
         this._y = y
+        this._displayChar = displayChar
     }
 
     getX() {
@@ -22,6 +24,10 @@ class Displayable {
 
     setY(y) {
         this._y = y
+    }
+
+    getDisplayChar() {
+        return this._displayChar
     }
 }
 
